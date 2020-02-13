@@ -1,0 +1,26 @@
+---
+title: "Using sgem"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using sgam}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(sgem)
+```
+
+
+# What is "sgem"?
+
+Sgem is apacakge to ineract with the geoproc geochemical data sets, and various  geopyhsical models such as the USGS slab2 model.
+
+
