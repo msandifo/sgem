@@ -1,0 +1,3 @@
+"","volcano.number","volcano.name","country","primary.volcano.type","activity.evidence","last.known.eruption","region","subregion","lat","long","elevation..m.","dominant.rock.type","tectonic.setting","file","slab.dip","slab.depth","slab.strike","mx","my","optional"
+"1598",241800,"Hautere","New Zealand","Stratovolcano",NA,NA,"New Zealand to Fiji","New Zealand",-46.55,166.9,330,NA,"Subduction zone / Continental crust (>25 km)","Pleistocene",66.1578407194091,-117.129947684838,25.2071819365049,166.9,-46.55,TRUE
+"1611",241814,"Solander Island","New Zealand","Stratovolcano",NA,NA,"New Zealand to Fiji","New Zealand",-46.55,166.87,300,NA,"Subduction zone / Continental crust (>25 km)","Pleistocene",65.8338724758059,-111.935147662477,24.5176477523732,166.87,-46.55,TRUE

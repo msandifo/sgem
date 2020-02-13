@@ -1,19 +1,20 @@
-
+library(sgem)
 #----
+
 
 v <-read_vo(fn= "data/sam2.csv")
 
 
 cm.sam <-read_geoproc() %>% as.data.table() %>%
-  filter_geoproc_ages()  %>%
-   merge_geoproc_vo(v ) #%>%
-#   factor_depths(int=c(25,10))
+  filter_geoproc_ages()  #%>% merge_geoproc_vo(v ) # %>% factor_depths(int=c(25,10))
 
 ss <-get_v_group(cm.sam,  volcanoes= c("Sumaco", "Revent", "Hudson", "Copa,"),rad=16)
 
-ss <-get_v_group(cm.sam,  volcanoes= c(get_v_country(country="Chile")),rad=5)
+ss <-get_v_group(cm.sam,  volcanoes= c(get_v_country(country="Colo")), rad=5)
 
-ggplot(ss    , aes( sio2.wt, k2o.wt+na2o.wt, col=location )) +
+ss <-get_v_group(cm.sam,  volcanoes= c(get_v_country(country="Chile"))  , rad=4)
+
+ggplot(ss    , aes( sio2.wt, k2o.wt+na2o.wt)) +
   geom_point()+
   hrbrthemes::theme_ipsum()+
 theme(legend.position="bottom")+
