@@ -1,5 +1,6 @@
 read_slab <- function(slab="sam", rast=F){
 
+
  fname <- paste0("data/allslabs/",slab,"_slab2_dep_02.23.18.grd")
  ras <- rgdal::readGDAL(fname) %>%
    raster::raster() %>%
