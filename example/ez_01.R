@@ -2,17 +2,34 @@ library(sgem)
 #----
 
 
-v <-read_vo(fn= "data/sam2.csv")
+v <-read_vo(sl="sam")
 
 
 cm.sam <-read_geoproc() %>% as.data.table() %>%
-  filter_geoproc_ages()  #%>% merge_geoproc_vo(v ) # %>% factor_depths(int=c(25,10))
+  filter_geoproc_ages()  %>% sub_geoproc_lim(v)
 
-ss <-get_v_group(cm.sam,  volcanoes= c("Sumaco", "Revent", "Hudson", "Copa,"),rad=16)
+dim(cm.sam)
 
-ss <-get_v_group(cm.sam,  volcanoes= c(get_v_country(country="Colo")), rad=5)
+#cm.sam.1 <-cm.sam%>% merge_geoproc_vo(v ) # %>% factor_depths(int=c(25,10))
 
-ss <-get_v_group(cm.sam,  volcanoes= c(get_v_country(country="Chile"))  , rad=4)
+# ss <-get_v_group(cm.sam,  volcanoes= c("Sumaco", "Revent", "Hudson", "Copa,"),rad=16)
+#
+# ss <-get_v_group(cm.sam,  volcanoes= c(get_v_country(country="Colo")), rad=5)
+
+ss <-get_v_group(cm.sam,  volcanoes= c(get_v_country(country="Peru"))  , rad=4)
+cm.sam <-extract_depths(cm.sam)
+ggplot(cm.sam   , aes(lat, slab.depth)) +
+  geom_point(size=.2)+
+  hrbrthemes::theme_ipsum()+
+  theme(legend.position="bottom")+
+  labs(title = "sgem in action")
+
+ggplot(cm.sam   , aes(  slab.depth, nb.ppm)) +
+  geom_point(size=.2)+
+  hrbrthemes::theme_ipsum()+
+  theme(legend.position="bottom")+
+  labs(title = "sgem in action")+ylim(c(0,100))
+
 
 ggplot(ss    , aes( sio2.wt, k2o.wt+na2o.wt)) +
   geom_point()+
@@ -22,7 +39,7 @@ theme(legend.position="bottom")+
 
 ggsave("~/Dropbox/transfers/gideon/images/sgem_action.png", width=5, height=5)
 
-geom_density_2d()#+geom_density_2d()+
+#geom_density_2d()#+geom_density_2d()+
 
 
 
@@ -38,11 +55,11 @@ huds <-get_geoproc_loc(cm.sam, get_v_loc("Hudson"), rad=6)
 get_geoproc_loc(cm.sam, get_v_loc("Hudson"), rad=6) %>% dim()
 
 
-ggplot(cm.sam , aes(lon, lat)) + geom_point(aes(col=min.age.yrs/1e6 ) )
+ggplot(cm.sam , aes(lon, lat)) + geom_point(aes(col=min.age.yrs/1e6 ), size=.2 )
 
 
-cm.sam <- cm.sam %>% mutate(depth =paste0(floor(abs(v.slab.depth)/25)*25, "km"),
-                      dip= paste0(floor(abs(v.slab.dip)/10)*10, "km"))
+cm.sam <- cm.sam %>% mutate(depth =paste0(floor(abs(slab.depth)/25)*25, "km"),
+                      dip= paste0(floor(abs(slab.dip)/10)*10, "km"))
 # ags.s.v$v.slab.depth
 ggplot(cm.sam  %>% subset(v.slab.depth< -220), aes(lon, lat)) +
   geom_point(aes(col=min.age.yrs/1e6 ) )

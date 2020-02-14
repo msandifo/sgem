@@ -52,19 +52,19 @@ filter_geoproc_ages<- function( df, myr=2.5, age.list = c("PREHISTORIC","HISTORI
 merge_geoproc_vo <- function(df, v, sub=T) {
   if (sub==T) df <-  sub_geoproc_lim(df,v)
   df$dis<- NA
-  df$v.name<-NA
-  df$v.depth<-NA
-  df$v.strike<-NA
-  df$v.dip<-NA
+  df$volcano.name<-NA
+  df$v.slab.depth<-NA
+  df$v.slab.strike<-NA
+  df$v.slab.dip<-NA
   for (i in 1:((dim(df)[1]))){
     dis <-raster::pointDistance(c(df$lon[i], df$lat[i]), v[, c("long","lat")], lonlat=TRUE)/1000
-    # print(min(dis))
+      #print(i)
     ind <- which.min(dis)
     df$dis[i] <- min(dis)
-    df$v.name[i]= v$volcano.name[ind]
-    df$v.slab.depth[i]= v$slab.depth[ind]
-    df$v.slab.dip[i]= v$slab.dip[ind]
-    df$v.slab.strike[i]= v$slab.strike[ind]
+    df$volcano.name[i]= v$volcano.name[ind]
+    df$slab.depth[i]= v$slab.depth[ind]
+    df$slab.dip[i]= v$slab.dip[ind]
+    df$slab.strike[i]= v$slab.strike[ind]
   }
   df
 }
@@ -171,12 +171,10 @@ get_v_loc <- function(volcano="Sumaco", v=read_vo()) {
 #' @export
 #'
 #' @examples
-get_v_group <- function(  df,  volcanoes= c("Sumaco", "Revent", "Hudson"),rad=6){
+get_v_group <- function(  df,  volcanoes= c("Sumaco", "Revent", "Hudson"),rad=6, ver=F){
 
   #note still to deal
- gpl <- function(volcano){
-    print(get_v_name(volcano) )
-   print(get_v_loc( volcano ))
+ gpl <- function(volcano, ver=ver){
 
    # print(get_v_loc(volcano))
    if (length(get_v_name( volcano ))==1) {
